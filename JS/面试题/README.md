@@ -19,7 +19,7 @@
 ```
 function Foo(){}
 var f1 = new Foo();
-console.log(f1 instanceof Foo); // true  (f1._proto_ === Foo.prototype)
+console.log(f1 instanceof Foo); // true  (f1.__proto__ === Foo.prototype)
 ```
 
 - Object.prototype.toString.call():
@@ -62,13 +62,84 @@ console.log(f1 instanceof Foo); // true  (f1._proto_ === Foo.prototype)
 	* ```原型链```：每个对象都有个 ```__proto__``` 连接着构造函数的原型对象，我们使用方法的时候就会沿着 ```__proto__``` 去寻找。原型链就是多个对象通过 ```__proto__``` 的方式连接了起来。
 
 - 总结：
-	* 所有的实例的 ```_proto_``` 都指向该构造函数的原型对象（prototype）。
-	* 所有的函数（包括构造函数）是 Function() 的实例，所以所有函数的 _proto_的都指向 Function() 的原型对象。
-	* 所有的原型对象（包括 Function 的原型对象）都是 Object 的实例，所以 ```_proto_``` 都指向 Object （构造函数）的原型对象。而 Object 构造函数的 ```_proto_``` 指向 null。
-	* Function 构造函数本身就是 Function 的实例，所以 ```_proto_``` 指向 Function 的原型对象。
+	* 所有的实例的 ```__proto__``` 都指向该构造函数的原型对象（prototype）。
+	* 所有的函数（包括构造函数）是 Function() 的实例，所以所有函数的 ```__proto__``` 的都指向 Function() 的原型对象。
+	* 所有的原型对象（包括 Function 的原型对象）都是 Object 的实例，所以 ```__proto__``` 都指向 Object （构造函数）的原型对象。而 Object 构造函数的 ```__proto__``` 指向 null。
+	* Function 构造函数本身就是 Function 的实例，所以 ```__proto__``` 指向 Function 的原型对象。
 
 ### new 
+- 定义：创建一个用户定义的对象类型的实例或具有构造函数的内置对象的实例
+- new 过程的四个阶段：
+	* 创建一个空的简单 JavaScript 对象（即{}）；
+	* 这个新对象的 ```__proto__``` 属性指向原函数的 prototype 属性。(即继承原函数的原型)
+	* 将新创建的对象作为 this 的上下文；
+	* 返回新对象，如果这个函数没有返回其他对象。
+	
+	```
+	function create(Con, ...args) {
+		// 创建空对象
+		let obj = {};
+		// 设置空对象的原型
+		obj.__proto__ = Con.prototype;
+		// 绑定 this 并执行构造函数
+		let result = Con.apply(obj, args);
+		// 如果 result 没有其他选择的对象，就返回 obj 对象
+		return result instanceof Object ? result : obj;
+	}
+	
+	function Test(name, age) {
+		this.name = name;
+		this.age = age;
+	}
+	
+	Test.prototype.sayName = function() {
+		console.log(this.name);
+	}
+	
+	const a = create(Test, 'Lydia', 21);
+	console.log(a.age); // 21
+	const name = a.sayName();
+	console.log(name); // 'Lydia'
+	```
+
+- 创建对象的方式
+	* new 构造函数
+	* 字面量 {}
+	* Object.create()
+
+- 字面量创建对象的优势所在
+	* 代码量少，更易读
+	* 对象字面量运行速度更快，它们可以在解析的时候被优化。他不会像 new 一个对象一样，解析器需要顺着作用域链从当前作用域开始查找，如果在当前作用域找到了名为 Object() 的函数就执行，如果没找到，就继续顺着作用域链往上照，直到找到全局 Object() 构造函数为止。
+	
+- new/字面量 与 Object.create(null) 创建对象的区别？
+	* new 和 字面量创建的对象的原型指向 Object.prototype，会继承 Object 的属性和方法。
+	* 通过 Object.create(null) 创建的对象，其原型指向 null，null 作为原型链的顶端，没有也不会继承任何属性和方法。
+
 ### 继承
+- 继承方式：
+	* 经典继承（构造函数）
+		
+		1. **基本思想**：在子类的构造函数的内部调用父类的构造函数。
+		2. **优点**：
+			* 保证了原型链中引用类型的独立，不被所有实例共享。
+			* 子类创建的时候可以向父类进行传参。
+		3. **缺点**：
+			* 继承的方法都在构造函数中定义，构造函数不能够复用了（因为构造函数中存在子类的特殊属性，所以构造函数中复用的属性不能复用了）。
+			* 父类中定义的方法对于子类型而言是不可见的（子类所有的属性都定义在父类的构造函数当中）。
+
+	* 组合继承
+		1. **基本思想**：
+			* 使用原型链实现对「原型对象属性和方法」的继承。
+			* 通过借用构造函数来实现对「实例属性」的继承。
+		2. **优点**：
+			* 在原型对象上定义的方法实现了函数的复用。
+			* 每个实例都有属于自己的属性。
+		3. **缺点**：
+			* 组合继承调用了两次父类的构造函数，造成了不必要的消耗。
+			
+	* 原型继承
+	* 寄生式继承
+
 ### 闭包
 ### 垃圾回收机制
 ### 深拷贝和浅拷贝
