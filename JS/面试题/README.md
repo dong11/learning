@@ -137,10 +137,123 @@ console.log(f1 instanceof Foo); // true  (f1.__proto__ === Foo.prototype)
 		3. **缺点**：
 			* 组合继承调用了两次父类的构造函数，造成了不必要的消耗。
 			
-	* 原型继承
+	* 原型继承(Object.create)
 	* 寄生式继承
 
 ### 闭包
+- 作用域：规定变量和函数的可使用范围叫做作用域。
+- 作用域链：每个函数都会有一个作用域，查找变量或函数时，由局部作用域到全局作用域依次查找，这些作用域的集合就称作为作用域链。
+- 闭包：函数执行会形成一个私有的作用域，保护里面的变量不受外界干扰，除了保护私有变量外，还可以存储一些内容，这种模式叫做闭包。
+
+```
+function Fn() {
+	var b = 2;
+	return function (){
+		console.log(b++);
+	}
+}
+var a = new Fn();
+a(); // 2
+a(); // 3
+```
+
 ### 垃圾回收机制
 ### 深拷贝和浅拷贝
+- 浅拷贝实现方式：只进行一层关系的拷贝。
+	* 扩展运算符实现：
+	
+	```
+	let a = {c: 1, x: {y: 1}}
+	let b = {...a}
+	a.c = 2
+	console.log(b.c) // 1
+	a.x.y = 2;
+	console.log(b.x.y) // 2
+	```
+	
+	* Object.assign()实现
+	
+	```
+	let a = {c: 1, x: {y: 1}};
+	let b = Object.assign({}, a);
+	a.c = 2
+	console.log(b.c) // 1
+	a.x.y = 2;
+	console.log(b.x.y) // 2
+	```
+	
+	* 自己实现一个浅拷贝：
+	
+	```
+	function shallowClone(o) {
+	const obj = {};
+	for(let i in o) {
+		obj[i] = o[i];
+	}
+	return obj;
+	}
+	```
+	
+- 深拷贝实现方式：进行无限层次的拷贝。
+	* JSON.parse(JSON.stringify(object))
+	
+	```
+	// obj 中存在函数时
+	function stringifyRep(key, value) {
+	  if (typeof value === "function") {
+	    return `${value}`;
+	  }
+	  return value;
+	}
+	function parseRep(key, value) {
+	  return eval(value);
+	}
+	var a = {
+	  b: () => 1 + 1
+	}
+	var aa = JSON.parse(JSON.stringify(a, stringifyRep), parseRep)
+	```
+
+	* 自己实现一个深拷贝：
+	
+	```
+	function deepClone(obj, cache = []) {
+		// typeof [] === 'object'
+		// typeof {} === 'object'
+		if(obj === null || typeof obj !== 'object') {
+			return obj;
+		}
+		
+		// 解决循环引用的问题 如：var a = {b: 1}; a.c = a;
+		const hit = cache.filter(c => c.original === obj)[0];
+		if(hit) {
+			return hit.copy;
+		}
+		
+		const copy = Array.isArray(obj) ? [] : {};
+		
+		// 将copy首先放入cache, 因为我们需要在递归deepCopy的时候引用它
+		cache.push({
+			original: obj,
+			copy
+		});
+		
+		Object.keys(obj).forEach(key => {
+			copy[key] = deepClone(obj[key], cache);	
+		});
+		
+		return copy;
+	}
+	```
+	
 ### 异步编程
+- 异步编程方法：
+	* Promise
+	* Generator
+	* async/await
+
+- 运行机制
+	1. 一开始执行宏任务（script 中同步代码），执行完毕，调用栈为空。
+	2. 然后检查微任务队列是否有可执行任务，执行完所有微任务。
+	3. 进行页面渲染。
+	4. 第二轮从宏任务队列取出一个宏任务执行，重复以上循环。
