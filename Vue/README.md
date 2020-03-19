@@ -47,7 +47,68 @@ Vue 的 Observer 对数组做了单独的处理，对数组的方法进行编译
 	* 比较都有子节点的情况（核心 diff）
 	* 递归比较子节点
 
+- Vue diff 过程几个核心概念：
+	* vnode：虚拟 DOM
+
+		```
+		export default class VNode {
+			// 列举几个重要的属性
+			tag: String | void,
+			data: VNodeData | void,
+			children: ?Array<Node>,
+			text: String | void,
+			elm: Node | void,
+			context: Component | void; 
+			key: string | number | void;
+			parent: VNode | void; // component placeholder node
+			....
+		}
+		```
+		
+		1. children 和 parent 通过这个建立其 vnode 之间的层级关系，对应的也就是真实 dom 的层级关系。
+		2. text 如果存在值，证明该 vnode 对应的就是一个文本节点，跟 children 是一个互斥的关系，不可能同时有值。
+		3. tag 表明当前 vnode，对应真实 dom 的标签名，如'div'、'p'。
+		4. elm 就是当前 vnode 对应的真实的 dom
+		5. key 就是当前 vnode 标记的唯一 id。
+
+	* patch  
+		1. patch 完成之后，新的 vnode 上会对应生成 elm，也就是真实的 dom，且是已经挂载到 parentElm 下的 dom。简单的来说，如 vue 实例初始化、数据更改导致的页面更新等，都需要经过 patch 方法来生成 elm。
+		2. patch 的过程(除去边界条件)主要会有三种 case:
+			* 不存在 oldVnode,则进行createElm
+			* 存在 oldVnode 和 vnode，但是 sameVnode 返回 false, 则进行createElm
+			* 存在 oldVnode 和 vnode，但是 sameVnode 返回 true, 则进行patchVnode
+
+	* sameVnode
+	
+	```
+	function sameVnode (a, b) {
+	  return (
+	    a.key === b.key && (
+	      (
+	        a.tag === b.tag &&
+	        a.isComment === b.isComment &&
+	        isDef(a.data) === isDef(b.data) &&
+	        sameInputType(a, b)
+	      ) || (
+	        isTrue(a.isAsyncPlaceholder) &&
+	        a.asyncFactory === b.asyncFactory &&
+	        isUndef(b.asyncFactory.error)
+	      )
+	    )
+	  )
+	}
+	```
+	
+	* patchVnode
+	
+		当需要生成 dom，且前后vnode进行sameVnode为true的情况下，则进行patchVnode。
+		
+	* updateChildren（核心）
+
 - Vue2.x 的核心 diff 算法采用双端比较的算法，同时从新旧 children 的两端开始进行比较，借助 key 值找到可复用的节点，再进行相关操作。相比 React 的 diff 算法，同样情况下可以减少移动节点次数，减少不必要的性能损耗，更加优雅。
 
 - Vue3.x 借鉴了 ivi 算法和 inferno 算法。在创建 VNode 时就确定其类型，以及在 mount/patch 的过程中采用位运算来判断一个 VNode 的类型，在这个基础之上再配合核心的 Diff 算法，使得性能上较 Vue2.x 有了提升。
+
+#### computed 和 watch 的区别
+
 
