@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>animation</title>
+</head>
+
+<body>
+    <div class="stage init">
+        <div class="rotate">
+            <div class="ring part-nine-aniamtion">
+                <img class="poster poster1" src="http://img4.imgtn.bdimg.com/it/u=3971356495,3339395545&fm=26&gp=0.jpg">
+                <img class="poster poster2" src="http://pic1.win4000.com/wallpaper/2020-02-09/5e3fa60593c94.jpg">
+                <img class="poster poster3" src="http://www.wndhw.com/fengjing/shanshui/images/ss003t3.jpg">
+                <img class="poster poster4" src="http://pic1.win4000.com/wallpaper/2020-02-09/5e3fa60593c94.jpg">
+                <img class="poster poster5" src="http://pic1.win4000.com/wallpaper/2/57b7f9b1c1508.jpg">
+                <img class="poster poster6" src="http://tu1.whhost.net/uploads/20181011/22/1539269515-JoAswIGXxP.jpg">
+                <img class="poster poster7" src="http://image3.cnpp.cn/upload/images/20180515/11494176405_1200x800.jpg">
+                <img class="poster poster8" src="http://img4.imgtn.bdimg.com/it/u=3971356495,3339395545&fm=26&gp=0.jpg">
+                <img class="poster poster9" src="http://pic1.win4000.com/wallpaper/2020-02-09/5e3fa60593c94.jpg">
+                <img class="poster poster10" src="http://www.wndhw.com/fengjing/shanshui/images/ss003t3.jpg">
+                <img class="poster poster11" src="http://pic1.win4000.com/wallpaper/2020-02-09/5e3fa60593c94.jpg">
+                <img class="poster poster12" src="http://pic1.win4000.com/wallpaper/2/57b7f9b1c1508.jpg">
+                <img class="poster poster13" src="http://tu1.whhost.net/uploads/20181011/22/1539269515-JoAswIGXxP.jpg">
+                <img class="poster poster14" src="http://image3.cnpp.cn/upload/images/20180515/11494176405_1200x800.jpg">
+                <img class="poster poster15" src="http://img4.imgtn.bdimg.com/it/u=3971356495,3339395545&fm=26&gp=0.jpg">
+                <img class="poster poster16" src="http://pic1.win4000.com/wallpaper/2020-02-09/5e3fa60593c94.jpg">
+                <img class="poster poster17" src="http://www.wndhw.com/fengjing/shanshui/images/ss003t3.jpg">
+                <img class="poster poster18" src="http://pic1.win4000.com/wallpaper/2020-02-09/5e3fa60593c94.jpg">
+                <img class="poster poster19" src="http://pic1.win4000.com/wallpaper/2/57b7f9b1c1508.jpg">
+                <img class="poster poster20" src="http://tu1.whhost.net/uploads/20181011/22/1539269515-JoAswIGXxP.jpg">
+            </div>
+        </div>
+    </div>
+    <style type="text/css">
+    .stage {
+        margin-top: 200px;
+        margin: 50px auto;
+        width: 1000px;
+        height: 300px;
+        -webkit-perspective: 1300;
+        -webkit-perspective-origin: 50% 90%;
+        -moz-perspective: 1300;
+        -moz-perspective-origin: 50% 90%;
+        -ms-perspective: 1300;
+        -ms-perspective-origin: 50% 90%;
+        -o-perspective: 1300;
+        -o-perspective-origin: 50% 90%;
+        perspective: 1300;
+        perspective-origin: 50% 90%
+    }
+
+    .rotate {
+        margin: 0 auto;
+        width: 960px;
+        height: 300px
+    }
+
+    .ring {
+        margin: 0 auto;
+        height: 110px;
+        width: 600px;
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        -ms-transform-style: preserve-3d;
+        -o-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    }
+
+    .init .poster {
+        width: 120px;
+        height: 66px;
+        background-size: 100px 55px;
+        border: 1px solid #ddd;
+    }
+
+    .ring .poster {
+        width: 120px;
+        height: 70px;
+        position: absolute;
+        left: 250px;
+        color: rgba(0, 0, 0, .9);
+        -webkit-transition: all 1s;
+        -moz-transition: all 1s;
+        -o-transition: all 1s;
+        transition: all 1s
+    }
+
+    @keyframes y-spin {
+        0% {
+            transform: rotateY(0deg) translateY(100px)
+        }
+
+        50% {
+            transform: rotateY(180deg) translateY(100px)
+        }
+
+        100% {
+            transform: rotateY(360deg) translateY(100px)
+        }
+    }
+
+    .part-nine-aniamtion {
+        /*-webkit-animation: y-spin 50s linear 0s infinite;
+		    -moz-animation: y-spin 50s linear 0s infinite;
+		    -ms-animation: y-spin 50s linear 0s infinite;
+		    -o-animation: y-spin 50s linear 0s infinite;*/
+        animation: y-spin 50s linear 0s infinite
+    }
+
+    .poster1 {
+        -o-transform: rotateY(0deg) translateX(0px) translate(0px) translateZ(480px);
+        -moz-transform: rotateY(0deg) translateX(0px) translate(0px) translateZ(480px);
+        -webkit-transform: rotateY(0deg) translateX(0px) translate(0px) translateZ(480px);
+        -ms-transform: rotateY(0deg) translateX(0px) translate(0px) translateZ(480px);
+        transform: rotateY(0deg) translateX(0px) translate(0px) translateZ(480px);
+    }
+
+    .poster2 {
+        -o-transform: rotateY(18deg) translateX(0px) translate(0px) translateZ(480px);
+        -moz-transform: rotateY(18deg) translateX(0px) translate(0px) translateZ(480px);
+        -webkit-transform: rotateY(18deg) translateX(0px) translate(0px) translateZ(480px);
+        -ms-transform: rotateY(18deg) translateX(0px) translate(0px) translateZ(480px);
+        transform: rotateY(18deg) translateX(0px) translate(0px) translateZ(480px);
+    }
+
+    .poster3 {
+        -o-transform: rotateY(36deg) translateX(0px) translate(0px) translateZ(480px);
+        -moz-transform: rotateY(36deg) translateX(0px) translate(0px) translateZ(480px);
+        -webkit-transform: rotateY(36deg) translateX(0px) translate(0px) translateZ(480px);
+        -ms-transform: rotateY(36deg) translateX(0px) translate(0px) translateZ(480px);
+        transform: rotateY(36deg) translateX(0px) translate(0px) translateZ(480px);
+    }
+
+    .poster4 {
+        -o-transform: rotateY(54deg) translateX(0px) translate(0px) translateZ(480px);
+        -moz-transform: rotateY(54deg) translateX(0px) translate(0px) translateZ(480px);
+        -webkit-transform: rotateY(54deg) translateX(0px) translate(0px) translateZ(480px);
+        -ms-transform: rotateY(54deg) translateX(0px) translate(0px) translateZ(480px);
+        transform: rotateY(54deg) translateX(0px) translate(0px) translateZ(480px);
+    }
+
+    .poster5 {
+        -o-transform: rotateY(72deg) translateX(0px) translate(0px) translateZ(480px);
+        -moz-transform: rotateY(72deg) translateX(0px) translate(0px) translateZ(480px);
+        -webkit-transform: rotateY(72deg) translateX(0px) translate(0px) translateZ(480px);
+        -ms-transform: rotateY(72deg) translateX(0px) translate(0px) translateZ(480px);
+        transform: rotateY(72deg) translateX(0px) translate(0px) translateZ(480px);
+    }
+
+    .poster6 {
+        -o-transform: rotateY(90deg) translateX(0px) translate(0px) translateZ(480px);
+        -moz-transform: rotateY(90deg) translateX(0px) translate(0px) translateZ(480px);
+        -webkit-transform: rotateY(90deg) translateX(0px) translate(0px) translateZ(480px);
+        -ms-transform: rotateY(90deg) translateX(0px) translate(0px) translateZ(480px);
+        transform: rotateY(90deg) translateX(0px) translate(0px) translateZ(480px);
+    }
+
+    .poster7 {
+        -o-transform: rotateY(108deg) translateX(0px) translate(0px) translateZ(480px);
+        -moz-transform: rotateY(108deg) translateX(0px) translate(0px) translateZ(480px);
+        -webkit-transform: rotateY(108deg) translateX(0px) translate(0px) translateZ(480px);
+        -ms-transform: rotateY(108deg) translateX(0px) translate(0px) translateZ(480px);
+        transform: rotateY(108deg) translateX(0px) translate(0px) translateZ(480px);
+    }
+
+    .poster8 {
+        -o-transform: rotateY(126deg) translateX(0px) translate(0px) translateZ(480px);
+        -moz-transform: rotateY(126deg) translateX(0px) translate(0px) translateZ(480px);
+        -webkit-transform: rotateY(126deg) translateX(0px) translate(0px) translateZ(480px);
+        -ms-transform: rotateY(126deg) translateX(0px) translate(0px) translateZ(480px);
+        transform: rotateY(126deg) translateX(0px) translate(0px) translateZ(480px);
+    }
+
+    .poster9 {
+        -o-transform: rotateY(144deg) translateX(0px) translate(0px) translateZ(480px);
+        -moz-transform: rotateY(144deg) translateX(0px) translate(0px) translateZ(480px);
+        -webkit-transform: rotateY(144deg) translateX(0px) translate(0px) translateZ(480px);
+        -ms-transform: rotateY(144deg) translateX(0px) translate(0px) translateZ(480px);
+        transform: rotateY(144deg) translateX(0px) translate(0px) translateZ(480px);
+    }
+
+    .poster10 {
+        -o-transform: rotateY(162deg) translateX(0px) translate(0px) translateZ(480px);
+        -moz-transform: rotateY(162deg) translateX(0px) translate(0px) translateZ(480px);
+        -webkit-transform: rotateY(162deg) translateX(0px) translate(0px) translateZ(480px);
+        -ms-transform: rotateY(162deg) translateX(0px) translate(0px) translateZ(480px);
+        transform: rotateY(162deg) translateX(0px) translate(0px) translateZ(480px);
+    }
+
+    .poster11 {
+        -o-transform: rotateY(180deg) translateX(0px) translate(0px) translateZ(480px);
+        -moz-transform: rotateY(180deg) translateX(0px) translate(0px) translateZ(480px);
+        -webkit-transform: rotateY(180deg) translateX(0px) translate(0px) translateZ(480px);
+        -ms-transform: rotateY(180deg) translateX(0px) translate(0px) translateZ(480px);
+        transform: rotateY(180deg) translateX(0px) translate(0px) translateZ(480px);
+    }
+
+    .poster12 {
+        -o-transform: rotateY(198deg) translateX(0px) translate(0px) translateZ(480px);
+        -moz-transform: rotateY(198deg) translateX(0px) translate(0px) translateZ(480px);
+        -webkit-transform: rotateY(198deg) translateX(0px) translate(0px) translateZ(480px);
+        -ms-transform: rotateY(198deg) translateX(0px) translate(0px) translateZ(480px);
+        transform: rotateY(198deg) translateX(0px) translate(0px) translateZ(480px);
+    }
+
+    .poster13 {
+        -o-transform: rotateY(216deg) translateX(0px) translate(0px) translateZ(480px);
+        -moz-transform: rotateY(216deg) translateX(0px) translate(0px) translateZ(480px);
+        -webkit-transform: rotateY(216deg) translateX(0px) translate(0px) translateZ(480px);
+        -ms-transform: rotateY(216deg) translateX(0px) translate(0px) translateZ(480px);
+        transform: rotateY(216deg) translateX(0px) translate(0px) translateZ(480px);
+    }
+
+    .poster14 {
+        -o-transform: rotateY(234deg) translateX(0px) translate(0px) translateZ(480px);
+        -moz-transform: rotateY(234deg) translateX(0px) translate(0px) translateZ(480px);
+        -webkit-transform: rotateY(234deg) translateX(0px) translate(0px) translateZ(480px);
+        -ms-transform: rotateY(234deg) translateX(0px) translate(0px) translateZ(480px);
+        transform: rotateY(234deg) translateX(0px) translate(0px) translateZ(480px);
+    }
+
+    .poster15 {
+        -o-transform: rotateY(252deg) translateX(0px) translate(0px) translateZ(480px);
+        -moz-transform: rotateY(252deg) translateX(0px) translate(0px) translateZ(480px);
+        -webkit-transform: rotateY(252deg) translateX(0px) translate(0px) translateZ(480px);
+        -ms-transform: rotateY(252deg) translateX(0px) translate(0px) translateZ(480px);
+        transform: rotateY(252deg) translateX(0px) translate(0px) translateZ(480px);
+    }
+
+    .poster16 {
+        -o-transform: rotateY(270deg) translateX(0px) translate(0px) translateZ(480px);
+        -moz-transform: rotateY(270deg) translateX(0px) translate(0px) translateZ(480px);
+        -webkit-transform: rotateY(270deg) translateX(0px) translate(0px) translateZ(480px);
+        -ms-transform: rotateY(270deg) translateX(0px) translate(0px) translateZ(480px);
+        transform: rotateY(270deg) translateX(0px) translate(0px) translateZ(480px);
+    }
+
+    .poster17 {
+        -o-transform: rotateY(288deg) translateX(0px) translate(0px) translateZ(480px);
+        -moz-transform: rotateY(288deg) translateX(0px) translate(0px) translateZ(480px);
+        -webkit-transform: rotateY(288deg) translateX(0px) translate(0px) translateZ(480px);
+        -ms-transform: rotateY(288deg) translateX(0px) translate(0px) translateZ(480px);
+        transform: rotateY(288deg) translateX(0px) translate(0px) translateZ(480px);
+    }
+
+    .poster18 {
+        -o-transform: rotateY(306deg) translateX(0px) translate(0px) translateZ(480px);
+        -moz-transform: rotateY(306deg) translateX(0px) translate(0px) translateZ(480px);
+        -webkit-transform: rotateY(306deg) translateX(0px) translate(0px) translateZ(480px);
+        -ms-transform: rotateY(306deg) translateX(0px) translate(0px) translateZ(480px);
+        transform: rotateY(306deg) translateX(0px) translate(0px) translateZ(480px);
+    }
+
+    .poster19 {
+        -o-transform: rotateY(324deg) translateX(0px) translate(0px) translateZ(480px);
+        -moz-transform: rotateY(324deg) translateX(0px) translate(0px) translateZ(480px);
+        -webkit-transform: rotateY(324deg) translateX(0px) translate(0px) translateZ(480px);
+        -ms-transform: rotateY(324deg) translateX(0px) translate(0px) translateZ(480px);
+        transform: rotateY(324deg) translateX(0px) translate(0px) translateZ(480px);
+    }
+
+    .poster20 {
+        -o-transform: rotateY(342deg) translateX(0px) translate(0px) translateZ(480px);
+        -moz-transform: rotateY(342deg) translateX(0px) translate(0px) translateZ(480px);
+        -webkit-transform: rotateY(342deg) translateX(0px) translate(0px) translateZ(480px);
+        -ms-transform: rotateY(342deg) translateX(0px) translate(0px) translateZ(480px);
+        transform: rotateY(342deg) translateX(0px) translate(0px) translateZ(480px);
+    }
+    </style>
+</body>
+
+</html>

@@ -38,5 +38,21 @@ let obj = new Object();
 	* Object.prototype.toString.call()
 
 #### 属性
+##### 内置方法
+- Object.assign(): 用于将所有可枚举属性的值从一个或多个源对象复制到目标对象（浅拷贝）
 
+	```
+	const obj = {
+		a: 1,
+		b: {
+			x: 2
+		}
+	};
+	
+	const newObj = Object.assign({}, obj);
+	obj.a = 9;
+	obj.b.x = 12;
+	console.log(newObj); // {a: 1, b: { x: 12 }}
+	```
 
+- 
