@@ -8,9 +8,11 @@
 	元素框的总高度 = height + padding-top + padding-bottom + border-top + border-bottom + margin-top + margin-bottom;
 	
 - **IE 盒子模型：**  
-	元素框的总宽度 = width + padding-left + padding-right + border-left + border-right;
+	元素内容宽度 = width + padding-left + padding-right + border-left + border-right;
+	元素框的总宽度 = 元素内容宽度 + margin-left + margin-right;
 	
-	元素框的总高度 = height + padding-top + padding-bottom + border-top + border-bottom;
+	元素内容高度 = height + padding-top + padding-bottom + border-top + border-bottom;
+	元素框的总高度 = 元素内容高度 + margin-top + margin-bottom;
 	
 #### CSS所有选择器及其优先级、使用场景
 - **css选择器种类有：**  
@@ -86,6 +88,39 @@ css 继承特性主要是指文本方面的继承(比如字体、颜色、字体
 /*媒体查询*/
 @media{}
 ```
+
+#### link 和 @import 的区别
+- link 属于 XHTML 标签，而 @import 是 CSS 提供的。
+- ⻚面被加载时，link 会同时被加载，而 @import 引用的 CSS 会等到⻚面被加载完再加载。
+- import 只在 IE5 以上才能识别，而 link 是 XHTML 标签，无兼容问题。
+- link 方式的样式权重高于 @import 的权重。
+- 使用 dom 控制样式时的差别。当使用 javascript 控制 dom 去改变样式的时候，只能使用 link 标签，因为 @import 不是 dom 可以控制的。
+
+#### 有哪些方式(CSS)可以隐藏⻚面元素
+- ```opacity: 0```： 本质上是将元素的透明度将为0，就看起来隐藏了，但是依然占据空间且可以交互
+- ```visibility: hidden```： 与上一个方法类似的效果，占据空间，但是不可以交互了
+- ```display: none```：这个是彻底隐藏了元素，元素从文档流中消失，既不占据空间也不交互，也不影响布局
+- ```overflow: hidden```：这个只隐藏元素溢出的部分，但是占据空间且不可交互
+- ```z-index: -999```：原理是将层级放到底部，这样就被覆盖了，看起来隐藏了
+- ```transform: scale(0,0)```：平面变换，将元素缩放为0，但是依然占据空间，但不可交互
+
+#### em\px\rem区别
+- px：绝对单位，⻚面按精确像素展示。
+- em：相对单位，基准点为父节点字体的大小，如果自身定义了font-size按自身来计算(浏览器默认字体是 16px)，整个⻚面内1em不是一个固定的值。
+- rem：相对单位，可理解为”root em”, 相对根节点html的字体大小来计算，CSS3新加属性，chrome/firefox/IE9+支 持 
+
+#### 块级元素水平居中的方法
+
+#### CSS有几种定位方式（position 的值）
+- static：正常文档流定位，此时 top, right, bottom, left 和 z-index 属性无效，块级元素从上往下纵向排布，行级元素从左向右排列。
+- relative：相对定位，此时的『相对』是相对于正常文档流的位置。
+- absolute：相对于最近的非 static 定位祖先元素的偏移，来确定元素位置，比如一个绝对定位元素它的父级、和祖 父级元素都为relative，它会相对他的父级而产生偏移。
+- fixed：指定元素相对于屏幕视口(viewport)的位置来指定元素位置。元素的位置在屏幕滚动时不会改变，比如那 种回到顶部的按钮一般都是用此定位方式。
+- sticky：粘性定位，特性近似于relative和fixed的合体，其在实际应用中的近似效果就是IOS通讯录滚动的时候的 『顶屁股』。
+
+#### 
+
+
 	
 
 #### display 属性
