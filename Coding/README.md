@@ -9,8 +9,43 @@
 #### 防抖、节流
 
 #### 自定义 new 过程
+	
+```
+function create(Con, ...args) {
+	let obj = {};
+	obj.__proto__ = Con.prototype;
+	let result = Con.apply(obj, ...args);
+	return result instanceof Object ? result : obj;
+}
+```
 
 #### 实现深拷贝
+
+```
+function deepClone(obj, cache = []) {
+	if(typeof obj === null || typeof obj !== 'object') {
+		return;
+	}
+	
+	const hit = cache.filter(c => c.original === obj)[0];
+	if(hit) {
+		return hit.copy;
+	}
+	
+	const copy = Array.isArray(obj) ? [] : {};
+	
+	cache.push({
+		original: obj,
+		copy
+	});
+	
+	Object.keys(obj).forEach(key => {
+		copy[key] = deepClone(obj[key], cache);
+	});
+	
+	return copy;
+}
+```
 
 #### 双向绑定（手写）
 
