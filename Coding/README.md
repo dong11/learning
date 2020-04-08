@@ -1,12 +1,103 @@
 ### 手撕代码
 
-#### Promise（A+规范）、then、all 方法
+#### 手写instanceof的实现原理
 
-#### 异步加载图片（使用 Promise）
+```
+function instanceOf(left, right) {
+	let proto = left.__proto__;
+	let prototype = right.prototype;
+	while(true) {
+		if(proto === null) reutrn false;
+		if(proto === prototype) return true;
+		proto = proto.__proto__;
+	}
+}
+```
 
-#### 手写 call apply bind
+#### 手写 apply call bind
+- **三者用法**：
+	
+	```
+	fun.call(thisObj, arg1, arg2, arg3);
+	fun.apply(thisObj, [argsArray]);
+	var bindFn = fun.bind(thisObj, [, arg1[, arg2[, ...]]]);
+	bindFn();
+	```
+	
+- **apply**
+
+	```
+	Function.prototype.apply1 = function(content = window) {
+		content.fn = this;
+		let result;
+		if(arguments[1]) {
+			result = content.fn(...arguments[1]);
+		} else {
+			result = content.fn();
+		}
+		delete content.fn;
+		return result;
+	}
+	```
+	
+- **call**
+
+	```
+	Function.prototype.call1 = function(content = window) {
+		content.fn = this;
+		let result;
+		let args = arguments.slice(1);
+		result = content.fn(...args);
+		delete content.fn;
+		return result;
+	}
+	```
+	
+- **bind**
+
+	```
+	Function.prototype.bind1 = function(content = window) {
+		let _this = this;
+		let args = [...arguments].slice(1);
+		return function F() {
+			if(this instanceof F) {
+				return _this.apply(this, args.concat([...arguments]));
+			} 
+			return _this.apply(content, args.concat([...arguments]));
+		}
+	}
+	```
 
 #### 防抖、节流
+- 防抖：当持续触发事件时，一定时间段内没有再触发事件，事件处理函数才会执行一次，如果设定的时间到来之前，又一次触发了事件，就重新开始延时。
+
+	```
+	function debounce(fn, delay) {
+		let timer = null;
+		return function(..args) {
+			timer && clearTime(timer);
+			timer = setTimeout(() => {
+				fn.apply(this, args);
+			}, delay);
+		}
+	}
+	```
+	
+- 节流：当持续触发事件时，保证一定时间段内只调用一次事件处理函数。
+
+	```
+	function throttle(fn, delay) {
+		let flag = true;
+		return function(..args) {
+			if(!flag) return 
+			flag = false;
+			setTimeout(() => {
+				fn.apply(this, args);
+				flag = true;
+			}, delay);
+		}
+	}
+	```
 
 #### 自定义 new 过程
 	
@@ -50,3 +141,7 @@ function deepClone(obj, cache = []) {
 #### 双向绑定（手写）
 
 #### 实现一个EventListener类，包含on，off，emit方法
+
+#### Promise（A+规范）、then、all 方法
+
+#### 异步加载图片（使用 Promise）
