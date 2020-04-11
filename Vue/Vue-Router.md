@@ -73,3 +73,47 @@
 	* 调用全局的 afterEach 钩子。
 	* 触发 DOM 更新。
 	* 用创建好的实例调用 beforeRouteEnter 守卫中传给 next 的回调函数。
+
+#### Vue 路由懒加载
+- Vue 异步组件
+
+	```
+	{
+		path: '/home',
+		name: 'Home',
+		component: resolve => reqire(['path路径'], resolve)
+	}
+	```
+
+- ES6 提案的 import()
+
+	```
+	const Home = () => import('path路径')
+	```
+
+- Webpack 的 require.ensure()
+
+	```
+	{
+		path: '/home',
+		name: 'Home',
+		component: r => require.ensure([],() =>  r(require('path路径')), 'demo')
+	}
+	```
+
+#### 路由懒加载的作用
+- 有更好的客户体验，首屏组件加载速度更快一些，解决白屏问题。
+- 懒加载则可以将页面进行划分，需要的时候加载页面，可以有效的分担首页所承担的加载压力，减少首页加载用时。
+
+#### vue-router 中的 history 模式和 hash 模式的区别
+- **hash**：兼容所有浏览器，包括不支持 HTML5 History Api 的浏览器，例 http://www.abc.com/#/index，hash值为 #/index， hash 的改变会触发 hashchange 事件，通过监听 hashchange 事件来完成操作实现前端路由。hash 值变化不会让浏览器向服务器请求。
+
+	```
+	// 监听hash变化，点击浏览器的前进后退会触发
+	window.addEventListener('hashchange', function(event){ 
+	    let newURL = event.newURL; // hash 改变后的新 url
+	    let oldURL = event.oldURL; // hash 改变前的旧 url
+	}, false)
+	```
+	
+- **history**：兼容能支持 HTML5 History Api 的浏览器，依赖 HTML5 History API 来实现前端路由。没有#，路由地址跟正常的url一样，但是初次访问或者刷新都会向服务器请求，如果没有请求到对应的资源就会返回404，所以路由地址匹配不到任何静态资源，则应该返回同一个 index.html 页面，需要在 nginx 中配置。
