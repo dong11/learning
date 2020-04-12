@@ -139,9 +139,45 @@ function deepClone(obj, cache = []) {
 ```
 
 #### 双向绑定（手写）
+- Object.defineProperty
+ 
+	```
+	let vm = {};
+	let obj = {
+		name: 'zhangsan',
+		age: 18
+	};
+	for(let key in obj) {
+		if(obj.hasOwnProperty(key)) {
+			Object.defineProperty(vm, key, function() {
+				get: function() {
+					return obj[key];
+				},
+				set: function(value) {
+					obj[key] = value;
+				}
+			})
+		}
+	}
+	```
 
-#### 实现一个EventListener类，包含on，off，emit方法
+#### 实现一个 EventListener 类，包含 on，off，emit 方法
 
 #### Promise（A+规范）、then、all 方法
 
 #### 异步加载图片（使用 Promise）
+
+```
+function loadImageAsync(imageUrl) {
+	return new Promise((resolve, reject) => {
+		let img = new Image();
+		img.onload = function() {
+			resolve(img)
+		};
+		img.onerror = function() {
+			reject(new Error('Could not load image at ' + url));
+		};
+		img.src = imageUrl;
+	})
+}
+```
