@@ -9,3 +9,11 @@
 ####  JavaScript window.onload 事件和 jQuery ready 函数有何不同？
 - 可以在页面中使用多个document.ready()函数，但只能用一次window.onload
 - document.ready()函数在页面DOM元素加载完就会执行，而window.onload()函数则是要所有都加载
+
+#### 网页上有 5 个 <div> 元素，如何使用 jQuery来选择它们
+
+```
+	$('div'); // 根据标签名获取
+	$('.div'); // 根据类名获取
+	$('#div1'); // 根据 id 获取
+```
